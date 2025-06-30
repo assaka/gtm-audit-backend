@@ -24,3 +24,5 @@ def scrape_website_metadata(url: str) -> dict:
             "error": str(e),
             "url": url
         }
+
+
