@@ -7,7 +7,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Include the GTM audit route
+# ✅ This must come immediately after app is created
 app.include_router(gtm.router, prefix="/gtm", tags=["GTM Audit"])
 
 @app.get("/")
