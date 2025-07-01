@@ -1,6 +1,7 @@
 from fastapi import APIRouter, UploadFile, HTTPException
 from fastapi.responses import StreamingResponse, JSONResponse
 from services.audit_processor import analyze_uploaded_file, stream_response, process_audit
+from models.audit_schema import AuditRequestSchema, AuditResponseSchema
 
 router = APIRouter()
 
@@ -18,9 +19,14 @@ async def stream_gtm_results(session_id: str):
     return stream_response(session_id)
 
 
-@router.get("/gtm/simple-audit")
-def simple_audit(url: str):
-    result = process_audit(url)
-    return JSONResponse(content=result)
+@router.post("/gtm/audit", response_model=AuditResponseSchema)
+async def audit_gtm(request: AuditRequestSchema):
+    result = process_audit(request.url)
+    return AuditResponseSchema(
+        id="sample-id",  # You can replace this with real ID logic
+        timestamp="2025-07-01T00:00:00Z",  # Replace with real timestamp
+        url=request.url,
+        audit_summary=result["summary"]  # Make sure 'summary' key exists in result
+    )
 
 
