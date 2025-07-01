@@ -1,9 +1,0 @@
-openai
-langchain
-chromadb
-fastapi
-uvicorn
-python-multipart
-gunicorn
-google-generativeai
-python-dotenv
